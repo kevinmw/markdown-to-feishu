@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "feishu"
+version = "1.0.0"
+description = "一个用于飞书开放平台开发的Python工具集，支持文档创建、Markdown转换、内容插入等功能"
+readme = "CLAUDE.md"
+authors = [
+    {name = "Feishu Toolkit Developer"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+    "lark-oapi>=1.4.23",
+    "requests>=2.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+]
+mcp = [
+    "mcp>=1.14.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/feishu-toolkit/feishu-toolkit"
+Repository = "https://github.com/feishu-toolkit/feishu-toolkit"
+Documentation = "https://github.com/feishu-toolkit/feishu-toolkit/blob/main/CLAUDE.md"
+
+[project.scripts]
+feishu-md2doc = "apps.markdown_to_feishu_doc:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    ".eggs",
+]
